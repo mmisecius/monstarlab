@@ -1,0 +1,13 @@
+Thumbs.db
+.DS_Store
+
+# Ignore Gradle project-specific files/directories
+.gradle
+gradle-*.properties
+build
+
+# IntelliJ Idea / PhpStorm / WebStorm / ..
+*.iml
+.idea
+
+.aws_artifactory_auth_token

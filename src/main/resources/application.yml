@@ -1,0 +1,53 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /${spring.application.name}
+
+spring:
+  application:
+    name: mis055
+  flyway:
+    locations: classpath:db
+    schemas: ${spring.application.name}
+    outOfOrder: true
+  jpa:
+    open-in-view: false
+    dialect: org.hibernate.dialect.PostgreSQLDialect
+    ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        default_schema: "[${spring.application.name}]"
+  datasource:
+    url: jdbc:postgresql://localhost:5432/test_db
+    username: dbadmin
+    password: password
+    driverClassName: org.postgresql.Driver
+    hikari:
+      connection-timeout: 60000
+      maximum-pool-size: 10
+      auto-commit: false
+
+
+
+#  cloud:
+#    config:
+#      uri: ${CONFIG_SERVER_URL:http://localhost:8888}
+#      fail-fast: true
+#      allowOverride: true
+#      overrideNone: false
+#      overrideSystemProperties: false
+
+
+
+
+rest.api:
+    context: /api
+    customer:
+      version: 1.0
+      baseUrl: ${rest.api.context}/v${rest.api.customer.version}/customer
+
+
+springdoc:
+  api-docs.path: ${rest.api.context}
+  swagger-ui.path: ${rest.api.context}/swagger.html
