@@ -10,8 +10,11 @@ import org.springframework.stereotype.Repository
 import java.util.UUID
 
 @Repository
-interface BankAccountTransactionRepository : PagingAndSortingRepository<Transaction, UUID> {
+interface TransactionRepository : PagingAndSortingRepository<Transaction, UUID> {
 
     @Query("select t FROM Transaction t WHERE t.account=:account")
     fun findAll(account: BankAccount, pageable: Pageable): Page<Transaction>
+
+    @Query("select t FROM Transaction t WHERE t.id=:transactionId")
+    fun find(transactionId: UUID): Transaction?
 }

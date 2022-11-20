@@ -14,7 +14,7 @@ values ('cvb456', '0200', 'BUSINESS', null, 10000, 'EUR', 0, 'INACTIVE', 'f78671
 
 
 
-insert into transaction(id, account_number, transaction_type, value_date, amount, currency, variable_symbol,
+insert into transaction(id, account_number,  transaction_type, value_date, amount, currency, variable_symbol,
                                specific_symbol, status, version)
 values ('eb3db211-67f1-4dbb-9d01-ae421e6a4e4a', 'dfg456', 'INCOMING_PAYMENT', '2022-11-20T10:32:00.896+02:00', 222,
         'EUR', 'asd234', null, 'COUNTED', 0);

@@ -28,17 +28,17 @@ spring:
       maximum-pool-size: 10
       auto-commit: false
 
+#  security:
+#    user:
+#      name: test
+#      password: test
 
-
-#  cloud:
-#    config:
-#      uri: ${CONFIG_SERVER_URL:http://localhost:8888}
-#      fail-fast: true
-#      allowOverride: true
-#      overrideNone: false
-#      overrideSystemProperties: false
-
-
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: bigrabbit
+    password: password
+    autostart: true
 
 
 rest.api:
@@ -51,3 +51,5 @@ rest.api:
 springdoc:
   api-docs.path: ${rest.api.context}
   swagger-ui.path: ${rest.api.context}/swagger.html
+
+

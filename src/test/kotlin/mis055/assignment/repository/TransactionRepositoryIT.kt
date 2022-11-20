@@ -12,13 +12,12 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.domain.Pageable
-import org.testcontainers.junit.jupiter.Testcontainers
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class TransactionRepositoryIT : DbTestSupport() {
 
     @Autowired
-    lateinit var transactionRepository: BankAccountTransactionRepository
+    lateinit var transactionRepository: TransactionRepository
 
 
     @Test

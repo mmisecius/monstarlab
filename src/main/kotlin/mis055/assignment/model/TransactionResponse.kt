@@ -9,6 +9,8 @@ import java.util.UUID
 data class TransactionResponse(
     val id: UUID,
     val accountNumber: String,
+    val sourceAccountNumber: String? = null,
+    val targetAccountNumber: String? = null,
     val transactionType: TransactionType,
     val valueDate: OffsetDateTime,
     val amount: BigDecimal,

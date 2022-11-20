@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConf
 import org.springframework.boot.runApplication
 import org.springframework.data.web.config.EnableSpringDataWebSupport
 
+//@EnableWebSecurity
 @EnableSpringDataWebSupport
 @SpringBootApplication(exclude = [ErrorMvcAutoConfiguration::class])
 class AssignmentApplication

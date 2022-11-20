@@ -26,16 +26,18 @@ CREATE TABLE bank_account
 
 CREATE TABLE transaction
 (
-    id               varchar(36),
-    account_number   varchar(36),
-    transaction_type varchar(20) not null,
-    value_date       timestamp with time zone,
-    amount           decimal     not null,
-    currency         varchar(3)  not null,
-    variable_symbol  character varying,
-    specific_symbol   character varying,
-    status           varchar(20) not null,
-    version          int         not null,
+    id                    varchar(36),
+    account_number        varchar(36) not null,
+    source_account_number varchar(36),
+    target_account_number varchar(36),
+    transaction_type      varchar(20) not null,
+    value_date            timestamp with time zone,
+    amount                decimal     not null,
+    currency              varchar(3)  not null,
+    variable_symbol       character varying,
+    specific_symbol       character varying,
+    status                varchar(20) not null,
+    version               int         not null,
     CONSTRAINT transaction_pk PRIMARY KEY (id),
-    CONSTRAINT fk_transaction_bank_account FOREIGN KEY (account_number) REFERENCES bank_account (account_number)
+    CONSTRAINT fk_account_number_bank_account FOREIGN KEY (account_number) REFERENCES bank_account (account_number)
 );

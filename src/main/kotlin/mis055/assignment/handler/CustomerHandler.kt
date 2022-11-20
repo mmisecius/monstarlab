@@ -9,14 +9,18 @@ import mis055.assignment.mapper.CustomerMapper
 import mis055.assignment.mapper.TransactionMapper
 import mis055.assignment.model.CustomerResponse
 import mis055.assignment.model.DetailedBankAccountResponse
+import mis055.assignment.model.OutgoingTransactionRequest
 import mis055.assignment.model.TransactionResponse
 import mis055.assignment.service.CustomerService
+import mis055.assignment.service.TransactionService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import java.util.UUID
@@ -25,6 +29,7 @@ import java.util.UUID
 @RequestMapping("\${rest.api.customer.baseUrl}")
 class CustomerHandler(
     private val customerService: CustomerService,
+    private val transactionService: TransactionService,
     private val customerMapper: CustomerMapper,
     private val bankAccountMapper: BankAccountMapper,
     private val transactionMapper: TransactionMapper
@@ -63,6 +68,11 @@ class CustomerHandler(
             .let { transactionMapper.map(it) }
     }
 
+    @PutMapping(path = ["/bankaccount/{accountNumber}/transactions/send"])
+    fun sendMoney(@PathVariable accountNumber: String, @RequestBody request: OutgoingTransactionRequest) {
+        logger.info("Going to send money from the account accountNumber '$accountNumber'")
+        transactionService.sendMoney(accountNumber, request)
+    }
 
     companion object {
         private val logger: Logger = LoggerFactory.getLogger(CustomerHandler::class.java)

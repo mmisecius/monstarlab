@@ -2,6 +2,7 @@ version: '3'
 
 volumes:
     db_data:
+    rabbit_data:
 
 services:
     postgres:
@@ -15,3 +16,22 @@ services:
             - "5432:5432"
         volumes:
             - db_data:/var/lib/postgresql/data   
+
+    rabbitmq:
+        container_name: rabbitmq
+        image: rabbitmq:3.11.3-management
+        environment:
+            RABBITMQ_DEFAULT_USER: bigrabbit
+            RABBITMQ_DEFAULT_PASS: password
+        ports:
+            - "5672:5672"
+            - "15672:15672"
+        volumes:
+            - 'rabbit_data:/data'
+    app:
+        container_name: application
+        image: misecius-app:latest
+        environment:
+            SPRING_PROFILES_ACTIVE: docker
+        ports:
+            - "8080:8080"

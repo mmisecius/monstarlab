@@ -1,6 +1,7 @@
 package mis055.assignment.repository
 
 import mis055.assignment.domain.BankAccount
+import org.springframework.data.jpa.repository.Modifying
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.Repository
 import java.util.UUID
@@ -10,5 +11,9 @@ interface BankAccountRepository : Repository<BankAccount, UUID> {
 
     @Query("select a from BankAccount a where a.accountNumber = :accountNumber and a.status = mis055.assignment.enums.EntityStatus.ACTIVE")
     fun find(accountNumber: String): BankAccount?
+
+    @Modifying
+    @Query("update BankAccount a set a.balance = :#{#account.balance} where a.accountNumber = :#{#account.accountNumber}")
+    fun updateBalance(account: BankAccount)
 
 }

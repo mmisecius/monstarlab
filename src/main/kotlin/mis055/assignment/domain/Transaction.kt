@@ -19,7 +19,7 @@ import javax.persistence.Version
 
 @Table(name = "transaction")
 @Entity
-class Transaction(
+data class Transaction(
     @Id
     @Type(type = "org.hibernate.type.UUIDCharType")
     val id: UUID,
@@ -28,12 +28,18 @@ class Transaction(
     @JoinColumn(name = "account_number")
     val account: BankAccount,
 
+    @Column(name = "source_account_number")
+    val sourceAccountNumber: String? = null,
+
+    @Column(name = "target_account_number")
+    val targetAccountNumber: String? = null,
+
     @Enumerated(EnumType.STRING)
     @Column(name = "transaction_type", nullable = false)
     val transactionType: TransactionType,
 
-    @Column(name = "value_date", nullable = false)
-    val valueDate: OffsetDateTime,
+    @Column(name = "value_date")
+    val valueDate: OffsetDateTime? = null,
 
     @Column(name = "amount", nullable = false)
     val amount: BigDecimal,
@@ -54,5 +60,5 @@ class Transaction(
 
     @Version
     @Column(name = "version", nullable = false)
-    val version: Int,
+    val version: Int = 0,
 )

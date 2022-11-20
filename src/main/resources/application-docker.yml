@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/test_db
+  rabbitmq:
+    host: rabbitmq
+
+rest.api:
+    context: /api
+    customer:
+      version: 1.0
+      baseUrl: ${rest.api.context}/v${rest.api.customer.version}/customer
+
+
+springdoc:
+  api-docs.path: ${rest.api.context}
+  swagger-ui.path: ${rest.api.context}/swagger.html
+
+

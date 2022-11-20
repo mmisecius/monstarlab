@@ -7,6 +7,7 @@ plugins {
     id("io.spring.dependency-management") version "1.0.15.RELEASE"
     id("org.jetbrains.kotlin.plugin.spring")
     id("org.jetbrains.kotlin.plugin.jpa")
+    id("com.palantir.docker") version "0.34.0"
     id("jacoco")
 }
 
@@ -16,9 +17,6 @@ version = "1.0.0-SNAPSHOT"
 repositories {
     mavenCentral()
 }
-
-//extra["springCloudServicesVersion"] = "3.5.0"
-//extra["springCloudVersion"] = "2021.0.5"
 
 
 configurations.all {
@@ -33,6 +31,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-log4j2")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-amqp")
+
 //    implementation("org.springframework.boot:spring-boot-starter-security")
 
 
@@ -73,10 +73,6 @@ kapt {
         // add default component for mapstruct to generated @Injectable classes
         arg("mapstruct.defaultComponentModel", "spring")
     }
-
-//    dependencies {
-//        kapt("org.mapstruct:mapstruct-processor:1.5.1.Final")
-//    }
 }
 
 tasks {
@@ -92,6 +88,17 @@ tasks {
             jvmTarget = JavaVersion.VERSION_11.toString()
         }
     }
+}
+
+docker {
+    name = "misecius-app:latest"
+    tag("name", "misecius")
+
+    buildArgs(mapOf("name" to "misecius"))
+    copySpec.from("build/libs").into("distribution")
+    pull(true)
+    setDockerfile(file("Dockerfile"))
+
 }
 
 tasks.withType<Test> {

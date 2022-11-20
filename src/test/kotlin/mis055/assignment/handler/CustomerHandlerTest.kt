@@ -217,6 +217,8 @@ internal class CustomerHandlerTest{
                 every { account } returns mockk {
                     every { accountNumber } returns "abc123"
                 }
+                every { sourceAccountNumber } returns null
+                every { targetAccountNumber } returns "bcd123"
                 every { transactionType } returns TransactionType.INCOMING_PAYMENT
                 every { valueDate } returns OffsetDateTime.now()
                 every { amount } returns BigDecimal.valueOf(12.23)
@@ -231,6 +233,8 @@ internal class CustomerHandlerTest{
                 every { account } returns mockk {
                     every { accountNumber } returns "abc123"
                 }
+                every { sourceAccountNumber } returns "bcd123"
+                every { targetAccountNumber } returns null
                 every { transactionType } returns TransactionType.OUTGOING_PAYMENT
                 every { valueDate } returns OffsetDateTime.now()
                 every { amount } returns BigDecimal.valueOf(3.44)
