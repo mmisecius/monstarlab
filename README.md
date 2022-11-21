@@ -3,7 +3,7 @@ To build application run:
 
     gradlew clean build docker
 
-this assembles the application and creates a docker images. To start the whole 'system' use attached 
+this assembles the application and creates a docker image. To start the whole 'system' use attached 
 _docker-compose_ file by executing of the following command
 
     docker-compose up
@@ -13,7 +13,7 @@ it's gonna start postgesql database, rabbitMQ and application itself. Port mappi
 
 ### Playing with application 
 
-Application listens on **8080** port and has expose several endpoints
+Application listens on **8080** port and has exposed several endpoints
 
 * For obtaining the bank customer invoke
 
@@ -30,15 +30,15 @@ The mentioned command returns the json payload with the two associated accounts
 
 http://localhost:8080/mis055/api/v1.0/customer/bankaccount/bcd234
 
-where bcd234 is accountNumber - there are two account - second one is 'abc123'
+where bcd234 is accountNumber - there are two accounts - second one is 'abc123'
 
-* to list transactions belong to associated account serves
+* to list transactions belong to associated account serves the endpoint
 
 http://localhost:8080/mis055/api/v1.0/customer/bankaccount/abc123/transactions
 
 where 'abc123' is accountNumber
 
-This endpoint supports pagination - so you can sort it and return the required slices 
+This endpoint supports pagination - so you can sort it and obtain the required slices of data
 
 like 
 
@@ -51,7 +51,7 @@ see springboot pagination
 from terminal run the following
 
 
-    curl --location --request POST 'http://localhost:8080/mis055/api/v1.0/customer/abc123/transactions/send' \
+    curl --location --request PUT 'http://localhost:8080/mis055/api/v1.0/customer/abc123/transactions/send' \
     --header 'Content-Type: application/json' \
     --data-raw '{
     "accountNumber":"bcd234",
@@ -64,16 +64,16 @@ this sends the money from the abc123 --> bcd234 and creates the appropriated tra
 
 ### Most interesting parts of code
 
-* For integration tests i used testcontainers to run the real db
-* in tests i used mockk and assertjk which are really great for kotlin
-* for mapping I used mapstruct
+* For integration tests I used testcontainers to run the real db
+* in tests is used mockk and assertjk which are really great for kotlin
+* for mapping is used mapstruct
 * database access is served by JPA
-* in non integration tests but with context is use H2 database
-* there is also jaccoco for calculation of code coverage - open the file *build/sites/index.html*
+* in non integration tests but with context is used H2 database
+* there is also jaccoco for computation of code coverage - see the result in the file *build/sites/index.html*
 * there is openApi/swagger documentation - reachable under 
   * http://localhost:8080/mis055/api
   * http://localhost:8080/mis055/api/swagger.html
-* For locking of the transaction processing is used RabbitMQ broker
+* For locking of the transactions processing is used RabbitMQ broker
 
 ### Epilogue
 
